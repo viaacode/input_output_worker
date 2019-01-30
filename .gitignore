@@ -1,0 +1,8 @@
+config/
+*ini
+temp/*
+__pycache__/*
+*__pycache__/*
+uwsgi.pid
+tasks/__pycache__
+inout.pid
