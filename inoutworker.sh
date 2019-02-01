@@ -14,7 +14,7 @@ cmds() {
     trap "kill 0" EXIT
     celery worker -A tasks.worker_tasks -l info -E -n inout_worker@%h & #| systemd-cat &
     sleep 3
-    flower -A tasks.worker_tasks &
+    flower --port=5556 --address=10.9.24.21 -A tasks.worker_tasks &
 #    python3 inputOuputApi.py &
     uwsgi --chunked-input-timeout 300 uwsgi_local.ini --pidfile ./uwsgi.pid &
     watcherPid=`echo $$`

@@ -26,6 +26,11 @@ CONFIG = configparser.ConfigParser()
 CONFIG.read('config/config.ini')
 
 
+def merge_two_dicts(x, y):
+    z = x.copy()   # start with x's keys and values
+    z.update(y)    # modifies z with y's keys and values & returns None
+    return z
+
 def create_job(**body):
     """
     This function creates a new Transfer job.
@@ -50,7 +55,10 @@ def create_job(**body):
         if 'ftp' in msg['output']['type']:
             _output = 'toFtp'
             return msg['output']['type']['ftp'], _output
-    worker_msg = {**_in()[0], **_out()[0]}
+    i = _in()[0]
+    o = _out()[0]
+    worker_msg = merge_two_dicts(i, o)
+    # worker_msg = {**_in()[0], **_out()[0]}
     _input = _in()[1]
     _output = _out()[1]
     LOGGER.info(worker_msg)

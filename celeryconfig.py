@@ -13,7 +13,7 @@ config.read('config/config.ini')
 #else:
 #    broker_url = config['Celery']['broker_url'] 
 broker_url = config['Celery']['broker_url'] 
-result_backend = 'elasticsearch://do-prd-lst-01.do.viaa.be:9200/inoutworker-ftp/results'
+result_backend = 'elasticsearch://dg-prd-lst-01.dg.viaa.be:9200/inoutworker-ftp/results'
 
 #result_backend = 'elasticsearch://do-tst-lst-01.do.viaa.be:9200/transcoder/results'
 #result_backend = 'rpc://'

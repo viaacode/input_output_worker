@@ -37,10 +37,10 @@ class download_file(object):
     def dwnl(self):
         proxies = {
           'http': config['proxy']['url'],
-          'https': config['proxy']['url'],
+          'https': config['proxy']['url']
         }
         if self.user is None  and self.passwd is None:
-            r = requests.get(self.url, stream=True,proxies=None)
+            r = requests.get(self.url, stream=True,proxies=proxies)
             if r.status_code == 200:
                 LOGGER.info('starting download: {}'.format(self.url))
                 with open(self.file, 'wb') as f:
@@ -49,9 +49,8 @@ class download_file(object):
                     
             return self.file 
         else:
-            r = requests.get(self.url, auth=HTTPBasicAuth(self.user, self.passwd))
+            r = requests.get(self.url, auth=HTTPBasicAuth(self.user, self.passwd, proxies=proxies))
             LOGGER.info('using requests with basic auth ')
-           # r = requests.get(self.url, stream=True,proxies=None)
             if r.status_code == 200:
                 LOGGER.info('starting download: {}'.format(self.url))
                 with open(self.file, 'wb') as f:
